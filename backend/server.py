@@ -1,36 +1,20 @@
 from xmlrpc.server import SimpleXMLRPCServer
+from calculator import add, sub, mul, div
 
-# Function to perform addition
-def add(a, b):
-    print("Client required addition")
-    return a + b
+HOST = "localhost"
+PORT = 8000
 
-def sub(a, b):
-    print("Client required Subtraction")
-    return a - b
+server = SimpleXMLRPCServer((HOST, PORT))
 
-def mul(a, b):
-    print("Client required multiplication")
-    return a * b
+print("=" * 40)
+print(" XML-RPC Calculator Server Started ")
+print("=" * 40)
+print(f"Running on {HOST}:{PORT}")
+print("Waiting for client requests...\n")
 
-def div(a, b):
-    print("Client required Division")
-    if b == 0:
-        return "Cannot divide by zero"
-    return a / b
+server.register_function(add)
+server.register_function(sub)
+server.register_function(mul)
+server.register_function(div)
 
-
-# Create server
-server = SimpleXMLRPCServer(("localhost", 8000))
-
-print("server started...")
-print("waiting for the client request...")
-
-# Register functions
-server.register_function(add, "add")
-server.register_function(sub, "sub")
-server.register_function(mul, "mul")
-server.register_function(div, "div")
-
-# Keep server running
 server.serve_forever()
