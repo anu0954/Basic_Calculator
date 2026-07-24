@@ -1,6 +1,5 @@
 import logging
 
-# Configure logging
 logging.basicConfig(
     level=logging.INFO,
     format="%(asctime)s - %(levelname)s - %(message)s"
@@ -8,25 +7,26 @@ logging.basicConfig(
 
 
 def add(a, b):
-    logging.info(f"Addition requested: {a} + {b}")
+    logging.info(f"Adding {a} + {b}")
     return a + b
 
 
 def sub(a, b):
-    logging.info(f"Subtraction requested: {a} - {b}")
+    logging.info(f"Subtracting {a} - {b}")
     return a - b
 
 
 def mul(a, b):
-    logging.info(f"Multiplication requested: {a} * {b}")
+    logging.info(f"Multiplying {a} * {b}")
     return a * b
 
 
 def div(a, b):
-    logging.info(f"Division requested: {a} / {b}")
+    logging.info(f"Dividing {a} / {b}")
 
-    if b == 0:
-        logging.warning("Attempted division by zero")
-        return "Cannot divide by zero"
+    try:
+        return a / b
 
-    return a / b
+    except ZeroDivisionError:
+        logging.error("Division by zero attempted")
+        return "Error: Cannot divide by zero"
